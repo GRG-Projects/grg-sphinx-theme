@@ -1,0 +1,29 @@
+# [build-system]
+# requires = ["sphinx-theme-builder >= 0.2.0a7"]
+# build-backend = "sphinx_theme_builder"
+
+# [tool.sphinx-theme-builder]
+# node-version = "16.13.2"
+# theme-name = "dipy_sphinx_theme"
+
+
+[project]
+name = "dipy-sphinx-theme"
+description = "A DIPY sphinx theme to use across DIPY projects"
+dynamic = ["version"]
+readme = "README.md"
+
+requires-python = ">=3.7"
+dependencies = [
+  "sphinx>=4",
+  "pydata-sphinx-theme==0.13.3",
+]
+
+license = { file = "LICENSE" }
+# TODO: Add email of the maintainer
+maintainers = [
+  { name = "DIPY web team" },
+]
+
+[project.entry-points]
+"sphinx.html_themes" = { dipy_sphinx_theme = "dipy_sphinx_theme" }
