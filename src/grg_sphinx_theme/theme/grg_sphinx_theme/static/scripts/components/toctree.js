@@ -15,6 +15,11 @@ export const toctreeClick = () => {
   });
 };
 
+/**
+ * This method introduces calculations for grid for toc tree
+ * not letting the grid to overflow the space provided by
+ * sphinx on different platforms
+ */
 export const gridCalculation = () => {
   const toctrees = document.querySelectorAll(".toctree-wrapper li.toctree-l1");
 
@@ -26,10 +31,23 @@ export const gridCalculation = () => {
     let width = 0;
     let noOfElements = 0;
     const MAX_ELEMENTS = 3;
+    const UNIT_SPACE = 16;
+
+    // handling the empty case
+    if (subtrees.length === 0) {
+      return;
+    }
+
+    // handling the single element case
+    if (subtrees.length === 1) {
+      subtreeContainer.classList.add("grid-3");
+      return;
+    }
 
     for (let i = 0; i < Math.min(MAX_ELEMENTS, subtrees.length); i++) {
-      // considering the padding applied
-      width += subtrees[i].offsetWidth + 32;
+      // Getting the size of text in the list
+      // considering the padding applied on right and left side
+      width += subtrees[i].offsetWidth + 2 * UNIT_SPACE;
 
       if (width > containerWidth) {
         break;
@@ -38,11 +56,9 @@ export const gridCalculation = () => {
       }
 
       // considering the gap applied
-      width += 16;
+      width += UNIT_SPACE;
     }
 
-    if (subtrees.length > 0) {
-      subtreeContainer.classList.add(`grid-${noOfElements}`);
-    }
+    subtreeContainer.classList.add(`grid-${noOfElements}`);
   });
 };
