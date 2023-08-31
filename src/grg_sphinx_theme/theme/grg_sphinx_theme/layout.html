@@ -1,0 +1,14 @@
+{% extends "pydata_sphinx_theme/layout.html" %}
+{# ref: https://github.com/pydata/pydata-sphinx-theme/blob/master/src/pydata_sphinx_theme/theme/pydata_sphinx_theme/layout.html #}
+{%- import "static/macros.html" as grg_macro with context %}
+
+{# We need to load the pydata macros and our own macros#}
+{%- block css %}
+  {{ super() }}
+  {{ grg_macro.head_assets() }}
+{%- endblock css %}
+
+{%- block scripts_end %}
+  {{ super() }}
+  {{ grg_macro.body_scripts() }}
+{%- endblock scripts_end %}

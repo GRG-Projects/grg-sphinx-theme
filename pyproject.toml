@@ -4,12 +4,12 @@
 
 # [tool.sphinx-theme-builder]
 # node-version = "16.13.2"
-# theme-name = "dipy_sphinx_theme"
+# theme-name = "grg_sphinx_theme"
 
 
 [project]
-name = "dipy-sphinx-theme"
-description = "A DIPY sphinx theme to use across DIPY projects"
+name = "grg-sphinx-theme"
+description = "A GRG sphinx theme to use across GRG projects"
 dynamic = ["version"]
 readme = "README.md"
 
@@ -22,8 +22,8 @@ dependencies = [
 license = { file = "LICENSE" }
 # TODO: Add email of the maintainer
 maintainers = [
-  { name = "DIPY web team" },
+  { name = "GRG web team" },
 ]
 
 [project.entry-points]
-"sphinx.html_themes" = { dipy_sphinx_theme = "dipy_sphinx_theme" }
+"sphinx.html_themes" = { grg_sphinx_theme = "grg_sphinx_theme" }
