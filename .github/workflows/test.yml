@@ -86,7 +86,7 @@ jobs:
       - name: Install test extras
         run: pip install grg-sphinx-theme[test]
       - name: Run tests
-        run: pytest --doctest-modules -v --pyargs grg-sphinx-theme
+        run: pytest --doctest-modules -v --pyargs grg_sphinx_theme
 
   publish:
     runs-on: ubuntu-latest
