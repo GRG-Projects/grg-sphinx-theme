@@ -11,8 +11,14 @@ def add_navbar_functions(
     Generate different links for navbar_links configuration
     """
 
+    # returns specific path for internal files
+    def generate_url(link: dict) -> str:
+      if "external" in link and link["external"]:
+        return link["url"]
+      return context["pathto"](link["url"])
+
     # returns the required class for external link
-    def external_link(link) -> str:
+    def external_link(link: dict) -> str:
       if "external" in link and link["external"]:
         return """ nav-external"""
       return ""
@@ -21,7 +27,7 @@ def add_navbar_functions(
     def generate_basic_link(link: dict) -> str:
       return f"""
           <li class="nav-item">
-            <a class="nav-link{external_link(link)}" href="{link["url"]}">
+            <a class="nav-link{external_link(link)}" href="{generate_url(link)}">
               {link["name"]}
             </a>
           </li>
