@@ -16,8 +16,12 @@ dependencies = [
 
 license = { file = "LICENSE" }
 # TODO: Add email of the maintainer
+authors = [
+  { name = "Mk996", email = "grg-l@list.indiana.edu" },
+  { name = "skoudoro", email = "grg-l@list.indiana.edu" },
+]
 maintainers = [
-  { name = "GRG web team" },
+  { name = "GRG web team", email = "grg-l@list.indiana.edu" },
 ]
 
 classifiers = [
@@ -32,7 +36,7 @@ classifiers = [
 "sphinx.html_themes" = { grg_sphinx_theme = "grg_sphinx_theme" }
 
 [project.urls]
-homepage = "https://github.com/GRG-Projects/grg-sphinx-theme"
+"Homepage" = "https://github.com/GRG-Projects/grg-sphinx-theme"
 documentation = "https://github.com/GRG-Projects/grg-sphinx-theme/blob/main/README.md"
 source = "https://github.com/GRG-Projects/grg-sphinx-theme"
 download = "https://pypi.org/project/grg-sphinx-theme/#files"
