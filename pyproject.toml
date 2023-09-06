@@ -42,6 +42,28 @@ source = "https://github.com/GRG-Projects/grg-sphinx-theme"
 download = "https://pypi.org/project/grg-sphinx-theme/#files"
 tracker = "https://github.com/GRG-Projects/grg-sphinx-theme/issues"
 
+[project.optional-dependencies]
+all = ["grg-sphinx-theme[dev,doc,style,test]"]
+dev = ["gitpython", "twine", "grg-sphinx-theme[style]", "wheel", "build"]
+style = ["flake8", "isort"]
+test = [
+  "coverage",
+  "pytest !=5.3.4",
+  "pytest-cov",
+  "pytest-doctestplus",
+  "pytest-httpserver",
+  "pytest-xdist",
+  "coverage",
+  "coveralls",
+  "codecov",
+]
+docs = [
+  "numpydoc",
+  "sphinx ~= 5.3",
+  "texext",
+  "tomli; python_version < \"3.11\"",
+]
+
 [tool.hatch.version]
 source = "vcs"
 
