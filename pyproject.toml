@@ -1,11 +1,6 @@
-# [build-system]
-# requires = ["sphinx-theme-builder >= 0.2.0a7"]
-# build-backend = "sphinx_theme_builder"
-
-# [tool.sphinx-theme-builder]
-# node-version = "16.13.2"
-# theme-name = "grg_sphinx_theme"
-
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
 [project]
 name = "grg-sphinx-theme"
@@ -13,7 +8,7 @@ description = "A GRG sphinx theme to use across GRG projects"
 dynamic = ["version"]
 readme = "README.md"
 
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 dependencies = [
   "sphinx>=4",
   "pydata-sphinx-theme==0.13.3",
@@ -21,9 +16,65 @@ dependencies = [
 
 license = { file = "LICENSE" }
 # TODO: Add email of the maintainer
+authors = [
+  { name = "Mk996", email = "grg-l@list.indiana.edu" },
+  { name = "skoudoro", email = "grg-l@list.indiana.edu" },
+]
 maintainers = [
-  { name = "GRG web team" },
+  { name = "GRG web team", email = "grg-l@list.indiana.edu" },
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
 ]
 
 [project.entry-points]
 "sphinx.html_themes" = { grg_sphinx_theme = "grg_sphinx_theme" }
+
+[project.urls]
+"Homepage" = "https://github.com/GRG-Projects/grg-sphinx-theme"
+documentation = "https://github.com/GRG-Projects/grg-sphinx-theme/blob/main/README.md"
+source = "https://github.com/GRG-Projects/grg-sphinx-theme"
+download = "https://pypi.org/project/grg-sphinx-theme/#files"
+tracker = "https://github.com/GRG-Projects/grg-sphinx-theme/issues"
+
+[project.optional-dependencies]
+all = ["grg-sphinx-theme[dev,doc,style,test]"]
+dev = ["gitpython", "twine", "grg-sphinx-theme[style]", "wheel", "build"]
+style = ["flake8", "isort"]
+test = [
+  "coverage",
+  "pytest !=5.3.4",
+  "pytest-cov",
+  "pytest-doctestplus",
+  "pytest-httpserver",
+  "pytest-xdist",
+  "coverage",
+  "coveralls",
+  "codecov",
+]
+docs = [
+  "numpydoc",
+  "sphinx ~= 5.3",
+  "texext",
+  "tomli; python_version < \"3.11\"",
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/grg_sphinx_theme/_version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [".git_archival.txt"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/grg_sphinx_theme"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
