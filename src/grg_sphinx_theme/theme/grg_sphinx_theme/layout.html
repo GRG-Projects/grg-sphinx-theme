@@ -8,6 +8,14 @@
   {{ grg_macro.head_assets() }}
 {%- endblock css %}
 
+{# Here we cannot use super() as the base template includes the header into nav tag #}
+{# the includes is grg-sphinx-theme header and it extends pydata-sphinx-theme header #}
+{%- block docs_navbar %}
+<nav class="bd-header navbar navbar-expand-lg bd-navbar">
+  {%- include "sections/header.html" %}
+</nav>
+{%- endblock docs_navbar %}
+
 {%- block scripts_end %}
   {{ super() }}
   {{ grg_macro.body_scripts() }}
