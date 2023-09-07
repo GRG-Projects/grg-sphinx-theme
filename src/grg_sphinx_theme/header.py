@@ -1,5 +1,6 @@
 from sphinx.application import Sphinx
 
+
 # Helper functions.
 def generate_url(link: dict, context) -> str:
   """Generate a url to specific file if it is an internal file."""
@@ -10,18 +11,17 @@ def generate_url(link: dict, context) -> str:
 def external_link_classes(link: dict) -> str:
   """Required class declaration for external links."""
   if "external" in link and link["external"]:
-    return """ nav-external"""
+    return "nav-external"
   return ""
 
 def generate_basic_link(link: dict, context) -> str:
   """Generate html code for a simple link with a tag and href populated."""
   return f"""
       <li class="nav-item">
-        <a class="nav-link{external_link_classes(link)}" href="{generate_url(link, context)}">
+        <a class="nav-link {external_link_classes(link)}" href="{generate_url(link, context)}">
           {link["name"]}
         </a>
-      </li>
-      """
+      </li>"""
 
 def generate_sub_links(links: list, context) -> str:
   """Generate html code for navigation links based upon list provided."""
@@ -33,12 +33,11 @@ def generate_sub_links(links: list, context) -> str:
 def generate_section_title(section: str) -> str:
   """Generate html code for navigation section title."""
   return f"""
-      <li class="nav-item">
-        <p class="nav-section-title nav-link">
-          {section}
-        </p>
-      </li>
-      """
+    <li class="nav-item">
+      <p class="nav-section-title nav-link">
+        {section}
+      </p>
+    </li>"""
 
 def generate_section_wise_links(links: list, context) -> str:
   """Generate html code for section wise navigation lists."""
@@ -60,7 +59,7 @@ def add_navbar_functions(
     """
     Generate different links for navbar_links configuration.
     """
-    
+
     links = context.get("theme_navbar_links")
 
     html_links = []
@@ -69,7 +68,7 @@ def add_navbar_functions(
       # If "url" is present: direct link
       if "url" in link:
         html_links.append(generate_basic_link(link, context))
-      
+
       # If "children" is present: simple dropdown
       elif "children" in link:
         html_links.append(
@@ -100,11 +99,11 @@ def add_navbar_functions(
           """
         )
 
-    
+
     out = "\n".join(html_links)
 
     return out
-  
+
   # Registering functions for context to access while building
   context["generate_navbar_links"] = generate_navbar_links
 
