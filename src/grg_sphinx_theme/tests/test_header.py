@@ -4,7 +4,7 @@ import pytest
 from grg_sphinx_theme.header import (
     generate_url, external_link_classes,generate_basic_link,
     generate_sub_links, generate_section_title, external_link_classes,
-    generate_url)
+    generate_url, add_navbar_functions)
 
 
 # Sample data for testing
@@ -14,6 +14,13 @@ sample_links = [
     {"external": True, "url": "link2.txt", "name": "Link 2"},
     ]
 sample_section = "Section Title"
+sphinx_context = {
+    "theme_navbar_links": [
+        {"name": "Link 1", "url": "/link1"},
+        {"name": "Dropdown 1", "children": [{"name": "Sublink 1", "url": "/sublink1"}, {"name": "Sublink 2", "url": "/sublink2"}]},
+        {"name": "Dropdown 2", "sections": [{"name": "Section 1", "links": [{"name": "Subsection 1", "url": "/subsection1"}, {"name": "Subsection 2", "url": "/subsection2"}]}]}
+    ]
+}
 
 def strip_whitespace(html_string):
     # Use a regular expression to replace multiple whitespace characters with a single space
@@ -145,3 +152,71 @@ def test_generate_section_title_empty_section():
     </p>
     </li>"""
     assert strip_whitespace(result) == strip_whitespace(expected_result)
+
+# TODO: test to update and check for correct html output
+# # Test cases for generate_navbar_links function
+# def test_generate_navbar_links_with_direct_links():
+#     expected_result = """
+#       <li class="nav-item">
+#         <a class="nav-link " href="/link1">
+#           Link 1
+#         </a>
+#       </li>
+#       """
+#     sphinx_context["pathto"] = lambda x: f"/path/to/{x}"
+#     add_navbar_functions(None, '', '', sphinx_context, None)
+#     result = sphinx_context["generate_navbar_links"]()
+#     assert strip_whitespace(result) == strip_whitespace(expected_result)
+
+# def test_generate_navbar_links_with_dropdown_links():
+#     expected_result = """
+#       <li class="nav-item dropdown">
+#         <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
+#           Dropdown 1
+#         </button>
+#         <ul id="pst-header-nav-more-links" class="dropdown-menu">
+#           <li class="nav-item">
+#             <a class="nav-link " href="/sublink1">
+#               Sublink 1
+#             </a>
+#           </li>
+#           <li class="nav-item">
+#             <a class="nav-link " href="/sublink2">
+#               Sublink 2
+#             </a>
+#           </li>
+#         </ul>
+#       </li>
+#       """
+#     result = add_navbar_functions(None, '', '', sphinx_context, None)()
+#     assert strip_whitespace(result) == strip_whitespace(expected_result)
+
+# def test_generate_navbar_links_with_section_links():
+#     expected_result = """
+#       <li class="nav-item dropdown">
+#         <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
+#           Dropdown 2
+#         </button>
+#         <ul id="pst-header-nav-more-links" class="dropdown-menu">
+#           <li class="nav-item dropdown">
+#             <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-header-nav-more-links">
+#               Section 1
+#             </button>
+#             <ul id="pst-header-nav-more-links" class="dropdown-menu">
+#               <li class="nav-item">
+#                 <a class="nav-link " href="/subsection1">
+#                   Subsection 1
+#                 </a>
+#               </li>
+#               <li class="nav-item">
+#                 <a class="nav-link " href="/subsection2">
+#                   Subsection 2
+#                 </a>
+#               </li>
+#             </ul>
+#           </li>
+#         </ul>
+#       </li>
+#       """
+#     result = add_navbar_functions(None, '', '', sphinx_context, None)()
+#     assert strip_whitespace(result) == strip_whitespace(expected_result)
