@@ -1,0 +1,19 @@
+.btn-primary {
+  --bs-btn-bg: var(--gst-color-primary);
+  --bs-btn-border-color: var(--gst-color-primary);
+  --bs-btn-hover-bg: var(--gst-color-primary-hover);
+  --bs-btn-hover-border-color: var(--gst-color-primary-hover);
+}
+
+.btn-regular {
+  --bs-btn-bg: var(--bs-gray-300);
+  --bs-btn-border-color: var(--bs-gray-300);
+  --bs-btn-hover-bg: var(--bs-gray-400);
+  --bs-btn-hover-border-color: var(--bs-gray-400);
+  --bs-btn-color: #323232;
+  --bs-btn-hover-color: #323232;
+}
+
+a.btn-link, a.btn-link:hover {
+  text-decoration: none;
+}
