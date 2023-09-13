@@ -20,3 +20,9 @@
   {{ super() }}
   {{ grg_macro.body_scripts() }}
 {%- endblock scripts_end %}
+
+{%- block footer %}
+  <footer class="bd-footer">
+    {%- include "sections/footer.html" with context %}
+  </footer>
+{%- endblock footer %}

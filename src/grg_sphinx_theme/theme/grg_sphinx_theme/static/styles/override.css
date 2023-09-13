@@ -17,3 +17,7 @@
 a.btn-link, a.btn-link:hover {
   text-decoration: none;
 }
+
+.bd-footer {
+  background: var(--pst-color-on-background);
+}

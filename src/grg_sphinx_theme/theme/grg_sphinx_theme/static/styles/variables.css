@@ -12,6 +12,11 @@ html[data-theme="light"] {
   --pst-color-link-hover: var(--gst-color-secondary);
   --pst-color-border: rgb(229,229,229);
   --gst-color-heading: var(--bs-gray-700);
+
+  --gst-color-bg: var(--bs-white);
+  --gst-color-bg-gray: var(--bs-gray-100);
+  --gst-color-light-border: var(--pst-color-border);
+  --gst-color-section-heading: var(--pst-color-text-base);
 }
 
 html[data-theme="dark"] {
@@ -21,4 +26,9 @@ html[data-theme="dark"] {
   --pst-color-link-hover: var(--gst-color-secondary);
   --pst-color-border: rgb(229,229,229);
   --gst-color-heading: var(--bs-gray-300);
+
+  --gst-color-bg: var(--bs-gray-900);
+  --gst-color-bg-gray: var(--bs-gray-900);
+  --gst-color-light-border: transparent;
+  --gst-color-section-heading: var(--gst-color-primary)
 }
