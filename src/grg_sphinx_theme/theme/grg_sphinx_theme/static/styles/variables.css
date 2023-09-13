@@ -1,4 +1,24 @@
 html {
   --pst-icon-external-link: "\f178";
   --pst-shadow: 0 12px 32px rgba(0, 0, 0, .1), 0 2px 6px rgba(0, 0, 0, .08);
+  --gst-color-primary-hover: #E37F22;
+  --gst-color-primary-border: #CA711E;
+}
+
+html[data-theme="light"] {
+  --pst-color-primary: var(--gst-color-primary);
+  --pst-color-secondary: var(--gst-color-secondary);
+
+  --pst-color-link-hover: var(--gst-color-secondary);
+  --pst-color-border: rgb(229,229,229);
+  --gst-color-heading: var(--bs-gray-700);
+}
+
+html[data-theme="dark"] {
+  --pst-color-primary: var(--gst-color-primary);
+  --pst-color-secondary: var(--gst-color-secondary);
+
+  --pst-color-link-hover: var(--gst-color-secondary);
+  --pst-color-border: rgb(229,229,229);
+  --gst-color-heading: var(--bs-gray-300);
 }
