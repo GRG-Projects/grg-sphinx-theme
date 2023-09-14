@@ -1,0 +1,27 @@
+<div class="grid-3">
+  {% for section in theme_footer_links %}
+  <div>
+    <h5 class="footer-heading">
+      {{ section.title }}
+    </h5>
+    <ul class="footer-section">
+      {% for link in section.links %}
+        {% if link.external %}
+        <li class="pad-v-5">
+          <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+            {{ link.name }}
+            <i class="fa-solid fa-arrow-up-long mar-l-5"></i>
+          </a>
+        </li>
+        {% else %}
+        <li class="pad-v-5">
+          <a href="{{ pathto(link.link) }}">
+            {{ link.name }}
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</div>

@@ -3,4 +3,5 @@
 @import "./override.css";
 @import "./components/toctree.css";
 @import "./components/navbar.css";
+@import "./components/footer.css";
 @import url("https://cdn.jsdelivr.net/gh/GRG-projects/CDN@latest/util.min.css");

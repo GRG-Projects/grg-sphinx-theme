@@ -20,4 +20,39 @@ a.btn-link, a.btn-link:hover {
 
 .bd-footer {
   background: var(--pst-color-on-background);
+  margin-bottom: 4em;
 }
+
+.bd-footer .bd-footer__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3em;
+  padding: 2rem 2rem 0rem;
+}
+
+
+@media only screen and (min-width: 1025px) {
+  .bd-footer .bd-footer__inner {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 10em;
+    padding: 2rem 2rem 0rem;
+  }
+}
+
+.bd-footer .footer-items__end, .bd-footer .footer-items__start {
+  text-align: start;
+  justify-content: start;
+}
+
+.form-control,
+.form-control ~ .input-group-append .input-group-text {
+  border: 1px solid var(--gst-color-border);
+}
+
+.form-control:focus,
+.form-control:focus ~ .input-group-append .input-group-text {
+  box-shadow: none;
+  border: 1px solid var(--pst-color-primary);
+}
+

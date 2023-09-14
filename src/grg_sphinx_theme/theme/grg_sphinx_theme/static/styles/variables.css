@@ -10,12 +10,12 @@ html[data-theme="light"] {
   --pst-color-secondary: var(--gst-color-secondary);
 
   --pst-color-link-hover: var(--gst-color-secondary);
-  --pst-color-border: rgb(229,229,229);
+  --gst-color-border: rgb(229,229,229);
   --gst-color-heading: var(--bs-gray-700);
 
   --gst-color-bg: var(--bs-white);
   --gst-color-bg-gray: var(--bs-gray-100);
-  --gst-color-light-border: var(--pst-color-border);
+  --gst-color-light-border: var(--gst-color-border);
   --gst-color-section-heading: var(--pst-color-text-base);
 }
 
@@ -24,7 +24,7 @@ html[data-theme="dark"] {
   --pst-color-secondary: var(--gst-color-secondary);
 
   --pst-color-link-hover: var(--gst-color-secondary);
-  --pst-color-border: rgb(229,229,229);
+  --gst-color-border: rgb(229,229,229);
   --gst-color-heading: var(--bs-gray-300);
 
   --gst-color-bg: var(--bs-gray-900);
