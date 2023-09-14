@@ -4,8 +4,10 @@ GRG Sphinx Theme
 from pathlib import Path
 from . import header
 
-__version__ = "0.1.0"
-"""grg-sphinx-theme version"""
+try:
+    from ._version import version as __version__
+except ImportError:
+    pass
 
 def get_html_theme_path():
     """Return list of HTML theme paths."""
