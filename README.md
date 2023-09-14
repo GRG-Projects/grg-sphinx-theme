@@ -78,3 +78,5 @@ html_theme_options = {
 ## Contributing Guidelines
 
 For contribution we are required to have to maintain the same coding standard and formatting. We recommend using VSCode as an editor and use prettier extension on the VSCode.
+
+For more steps, you can read our [Contributing guidelines](CONTRIBUTING.md)
