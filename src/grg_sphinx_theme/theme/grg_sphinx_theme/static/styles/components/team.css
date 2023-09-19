@@ -1,0 +1,40 @@
+.team-heading {
+  color: var(--gst-color-section-heading);
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.team-members {
+  gap: 10px;
+}
+
+.team-member {
+  text-align: center;
+  border-radius: 8px;
+}
+
+.team-member img {
+  border-radius: 50%;
+  width: 70%;
+}
+
+.team-member-login {
+  color: var(--gst-color-primary);
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+.team-member-contribution {
+  color: var(--gst-color-secondary);
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .team-member-login {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 130px;
+  }
+}

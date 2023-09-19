@@ -1,0 +1,21 @@
+{% extends "grg_sphinx_theme/layout.html" %}
+
+{% block docs_main %}
+<div class="pad-v-48 pad-h-20">
+  <div class="teams">
+    <h1 class="team-heading"> Meet Our Team! </h1>
+    {% for team in teams_data %}
+    <div class="team">
+      {% with name=team.name, members=team.members %}
+        {% include "components/contributors.html" %}
+      {% endwith %}
+    </div>
+    {% endfor %}
+    <div class="team">
+      {% with name="Contributors", members=contributors %}
+        {% include "components/contributors.html" %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+{% endblock docs_main %}
