@@ -4,7 +4,7 @@ import sys
 from urllib.request import Request, urlopen
 from sphinx.application import Sphinx
 
-GH_TOKEN = os.environ.get('GH_TOKEN', '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')
+GH_TOKEN = os.environ.get('GH_TOKEN', '')
 CONTRIBUTORS_FILE = 'contributors.json'
 
 def fetch_url(url):
