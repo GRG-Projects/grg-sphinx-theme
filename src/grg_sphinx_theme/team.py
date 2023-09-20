@@ -94,11 +94,17 @@ def add_team_details(
     app: Sphinx
 ) -> None:
     """Add team deatils in the context"""
-    
+
     # Fetching theme configurations
     theme_conf = app.config.html_theme_options
     # Registering functions for context to access while building
     context = app.config.html_context
+
+    if "github_project" not in theme_conf or "github_repo" not in theme_conf:
+        return
+
+    if not theme_conf["github_project"] or not theme_conf["github_repo"]:
+        return
 
     # Setting values in context for usage while building
     context["team_stats"] = fetch_basic_stats()
@@ -106,5 +112,4 @@ def add_team_details(
 
     if theme_conf["github_teams"]:
         context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"])
-        
-    
+
