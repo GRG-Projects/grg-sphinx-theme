@@ -89,13 +89,13 @@ def get_teams(github_project:str, github_teams:list, contributors_details:list =
     return teams_data
 
 def get_contributors(github_project:str, github_repo:str, contributors_details:list = None):
-    """Fetch list of contirbutors from github."""
+    """Fetch list of contributors from github."""
 
     url = "https://api.github.com/repos/{0}/{1}/contributors?per_page=500".format(github_project, github_repo)
-    contirbutors = get_json_from_url(url)
+    contributors = get_json_from_url(url)
     if contributors_details:
-        contirbutors = login_to_fullname(contirbutors, contributors_details)
-    return contirbutors
+        contributors = login_to_fullname(contributors, contributors_details)
+    return contributors
 
 
 def add_team_details(
