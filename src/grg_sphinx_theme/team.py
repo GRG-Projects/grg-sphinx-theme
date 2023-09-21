@@ -5,7 +5,7 @@ from urllib.request import Request, urlopen
 from sphinx.application import Sphinx
 from sphinx.util import logger
 
-GH_TOKEN = os.environ.get('GH_TOKEN', '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')
+GH_TOKEN = os.environ.get('GH_TOKEN', '')
 
 def fetch_url(url):
     """
@@ -50,8 +50,8 @@ def fetch_basic_stats(github_project:str, github_repo:str, contributors:list):
 
     basic_stats.update({"contributors": len(contributors)})
     total_contributions = 0
-    for contirbutor in contributors:
-        total_contributions += contirbutor["contributions"]
+    for contributor in contributors:
+        total_contributions += contributor["contributions"]
     basic_stats.update({"total_contributions": total_contributions})
 
     return basic_stats
@@ -115,18 +115,16 @@ def add_team_details(
         return
 
     # Setting values in context for usage while building
-    if "contributors_details" in theme_conf:
-        context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"], theme_conf["contributors_details"])
-    else:
-        context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"])
+    context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"], theme_conf.get("contributors_details"))
+    
     
     context["team_stats"] = fetch_basic_stats(theme_conf["github_project"], theme_conf["github_repo"], context["contributors"])
     
     if "github_teams" in theme_conf:
-        if "contributors_details" in theme_conf:
-            context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"], theme_conf["contributors_details"])
-        else:
-            context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"])
+        context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"], theme_conf.get("contributors_details"))
+        
+            
+    
 
             
 

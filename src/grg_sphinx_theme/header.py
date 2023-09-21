@@ -2,23 +2,27 @@ from sphinx.application import Sphinx
 
 
 # Helper functions.
-def generate_url(link: dict, context) -> str:
-  """Generate a url to specific file if it is an internal file."""
-  if "external" in link and link["external"]:
-    return link["url"]
-  return context["pathto"](link["url"])
-
-def external_link_classes(link: dict) -> str:
-  """Required class declaration for external links."""
-  if "external" in link and link["external"]:
-    return "nav-external"
-  return ""
-
 def generate_basic_link(link: dict, context) -> str:
   """Generate html code for a simple link with a tag and href populated."""
+  if "link_type" in link and link["link_type"] == "external":
+    return f"""
+        <li class="nav-item">
+          <a class="nav-link" href="{link["url"]}" target="_blank">
+            {link["name"]} <i class="fa-solid fa-arrow-up-long external-icon mar-l-5"></i>
+          </a>
+        </li>"""
+  
+  elif "link_type" in link and link["link_type"] == "inter":
+     return f"""
+        <li class="nav-item">
+          <a class="nav-link" href="{link["url"]}">
+            {link["name"]}
+          </a>
+        </li>"""
+  
   return f"""
       <li class="nav-item">
-        <a class="nav-link {external_link_classes(link)}" href="{generate_url(link, context)}">
+        <a class="nav-link" href="{context["pathto"](link["url"])}">
           {link["name"]}
         </a>
       </li>"""
