@@ -3,9 +3,9 @@ import json
 import sys
 from urllib.request import Request, urlopen
 from sphinx.application import Sphinx
+from sphinx.util import logger
 
-GH_TOKEN = os.environ.get('GH_TOKEN', '')
-CONTRIBUTORS_FILE = 'contributors.json'
+GH_TOKEN = os.environ.get('GH_TOKEN', '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')
 
 def fetch_url(url):
     """
@@ -21,9 +21,6 @@ def fetch_url(url):
         req.add_header('Authorization', 'token {0}'.format(GH_TOKEN))
     try:
         print('fetching %s' % url, file=sys.stderr)
-        # url = Request(url,
-        #               headers={'Accept': 'application/vnd.github.v3+json',
-        #                        'User-agent': 'Defined'})
         if not url.lower().startswith('http'):
             msg = 'Please make sure you use http/https connection'
             raise ValueError(msg)
@@ -40,54 +37,65 @@ def get_json_from_url(url):
     f = fetch_url(url)
     return json.load(f) if f else {}
 
-def fetch_basic_stats(project='dipy/dipy'):
-    """Fetch the basic stats.
+def fetch_basic_stats(github_project:str, github_repo:str, contributors:list):
+    """Fetch the basic stats."""
 
-    Returns
-    -------
-    basic_stats : dict
-        A dictionary containing basic statistics. For example:
-        {   'subscribers': 41,
-            'forks': 142,
-            'forks_url': 'https://github.com/fury-gl/fury/network'
-            'watchers': 94,
-            'open_issues': 154,
-            'stars': 94,
-            'stars_url': 'https://github.com/fury-gl/fury/stargazers'
-        }
-
-    """
     desired_keys = [
         'stargazers_count',
-        'stargazers_url',
-        'watchers_count',
-        'watchers_url',
         'forks_count',
-        'forks_url',
-        'open_issues',
-        'issues_url',
-        'subscribers_count',
-        'subscribers_url',
     ]
-    url = 'https://api.github.com/repos/{0}'.format(project)
+    url = 'https://api.github.com/repos/{0}/{1}'.format(github_project, github_repo)
     r_json = get_json_from_url(url)
     basic_stats = dict((k, r_json[k]) for k in desired_keys if k in r_json)
+
+    basic_stats.update({"contributors": len(contributors)})
+    total_contributions = 0
+    for contirbutor in contributors:
+        total_contributions += contirbutor["contributions"]
+    basic_stats.update({"total_contributions": total_contributions})
+
     return basic_stats
 
-def get_teams(github_project:str, github_teams:list):
+def login_to_fullname(contributors:list, contributors_details:list):
+    """Updates the login from github to fullname of the contributor."""
+    for contributor in contributors:
+        for contributor_detail in contributors_details:
+            if contributor["login"].lower() == contributor_detail["login"].lower():
+                contributor["login"] = contributor_detail["fullname"]
+                if "priority" in contributor_detail:
+                    contributor["priority"] = contributor_detail["priority"]
+        if "priority" not in contributor:
+            contributor["priority"] = 100000000000
+            
+    return sorted(contributors, key=lambda x: x["priority"])
+
+def get_teams(github_project:str, github_teams:list, contributors_details:list = None):
+    """Fetch team details from github."""
     teams_data = []
     for team in github_teams:
+        # Check Response Reference in github Apis
         url = "https://api.github.com/orgs/{0}/teams/{1}/members".format(github_project, team["value"])
-        team_data = {
-            "name": team["label"],
-            "members": get_json_from_url(url)
-        }
-        teams_data.append(team_data)
+        members = get_json_from_url(url)
+        if members:
+            if contributors_details:
+                members = login_to_fullname(members, contributors_details)
+            team_data = {
+                "name": team["label"],
+                "members": members
+            }
+            teams_data.append(team_data)
+        else:
+            logger.warning("Unable to fetch team data for team: {0}. Check your API key or the name of the team!".format(team))
     return teams_data
 
-def get_contributors(github_project:str, github_repo:str):
+def get_contributors(github_project:str, github_repo:str, contributors_details:list = None):
+    """Fetch list of contirbutors from github."""
+
     url = "https://api.github.com/repos/{0}/{1}/contributors?per_page=500".format(github_project, github_repo)
-    return get_json_from_url(url)
+    contirbutors = get_json_from_url(url)
+    if contributors_details:
+        contirbutors = login_to_fullname(contirbutors, contributors_details)
+    return contirbutors
 
 
 def add_team_details(
@@ -107,9 +115,18 @@ def add_team_details(
         return
 
     # Setting values in context for usage while building
-    context["team_stats"] = fetch_basic_stats()
-    context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"])
+    if "contributors_details" in theme_conf:
+        context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"], theme_conf["contributors_details"])
+    else:
+        context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"])
+    
+    context["team_stats"] = fetch_basic_stats(theme_conf["github_project"], theme_conf["github_repo"], context["contributors"])
+    
+    if "github_teams" in theme_conf:
+        if "contributors_details" in theme_conf:
+            context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"], theme_conf["contributors_details"])
+        else:
+            context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"])
 
-    if theme_conf["github_teams"]:
-        context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"])
+            
 

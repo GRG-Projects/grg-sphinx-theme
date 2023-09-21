@@ -1,12 +1,18 @@
 <h2 class="team-heading">{{ name }}</h2>
 <div class="team-members grid-5">
   {% for member in members %}
-    <div class="team-member pad-20">
+  <div class="team-member pad-20">
+    <div class="team-member-img">
       <img src="{{ member.avatar_url }}" alt="">
-      <p class="team-member-login mar-t-10">{{ member.login }}</p>
-      {% if name == "Contributors" %}
-      <p class="team-member-contribution mar-t-10"> <i class="fa-solid fa-code-commit"></i> {{ member.contributions }} </p>
-      {% endif %}
     </div>
-    {% endfor %}
+    <a href="{{ member.html_url }}" target="_blank">
+      <p class="team-member-login mar-t-10">{{ member.login }}</p>
+    </a>
+    {% if name == "Contributors" %}
+    <p class="team-member-contribution mar-t-10">
+      <i class="fa-solid fa-code-commit"></i> {{ member.contributions }}
+    </p>
+    {% endif %}
+  </div>
+  {% endfor %}
 </div>

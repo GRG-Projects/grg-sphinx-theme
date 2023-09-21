@@ -1,6 +1,6 @@
 /* Customizing the navbar dropdown */
 .bd-header .navbar-nav .dropdown .dropdown-menu {
-  box-shadow: var(--pst-shadow);
+  box-shadow: var(--gst-shadow);
   border: 0;
   animation: 0.1s slideDown;
   min-width: 10rem;

@@ -3,7 +3,58 @@
 {% block docs_main %}
 <div class="pad-v-48 pad-h-20">
   <div class="teams">
-    <h1 class="team-heading"> Meet Our Team! </h1>
+    <h1 class="team-heading"> Meet Our Community! </h1>
+    <h2 class="team-heading"> Our Stats </h2>
+    <div class="team-stats grid-4">
+      <div class="team-stat pad-12">
+        <div class="team-stat-icon mar-r-12">
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <span>
+          <span class="team-stat-value">
+            {{ team_stats.stargazers_count }}
+          </span>
+          Stars
+        </span>
+        <i class="fa-solid fa-star team-stat-background"></i>
+      </div>
+      <div class="team-stat pad-12">
+        <div class="team-stat-icon mar-r-12">
+          <i class="fa-solid fa-code-fork"></i>
+        </div>
+        <span>
+          <span class="team-stat-value">
+            {{ team_stats.forks_count }}
+          </span>
+          Forks
+        </span>
+        <i class="fa-solid fa-code-fork team-stat-background"></i>
+      </div>
+      <div class="team-stat pad-12">
+        <div class="team-stat-icon mar-r-12">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <span>
+          <span class="team-stat-value">
+            {{ team_stats.contributors }}
+          </span>
+          Contributors
+        </span>
+        <i class="fa-solid fa-users team-stat-background"></i>
+      </div>
+      <div class="team-stat pad-12">
+        <div class="team-stat-icon mar-r-12">
+          <i class="fa-solid fa-code-commit"></i>
+        </div>
+        <span>
+          <span class="team-stat-value">
+            {{ team_stats.total_contributions }}
+          </span>
+          Contributions
+        </span>
+        <i class="fa-solid fa-code-commit team-stat-background"></i>
+      </div>
+    </div>
     {% for team in teams_data %}
     <div class="team">
       {% with name=team.name, members=team.members %}
