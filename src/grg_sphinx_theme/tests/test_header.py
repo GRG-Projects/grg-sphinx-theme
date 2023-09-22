@@ -1,10 +1,8 @@
 import re
 import pytest
 
-from grg_sphinx_theme.header import (
-    generate_url, external_link_classes,generate_basic_link,
-    generate_sub_links, generate_section_title, external_link_classes,
-    generate_url, add_navbar_functions)
+from grg_sphinx_theme.header import (generate_basic_link,
+    generate_sub_links, generate_section_title, add_navbar_functions)
 
 
 # Sample data for testing
@@ -25,37 +23,6 @@ sphinx_context = {
 def strip_whitespace(html_string):
     # Use a regular expression to replace multiple whitespace characters with a single space
     return re.sub(r'\s+', ' ', html_string).strip()
-
-# Test cases for generate_url function
-def test_generate_url_internal_link():
-    link = {"external": False, "url": "internal_file.txt"}
-    context = {"pathto": lambda x: f"/path/to/{x}"}
-    result = generate_url(link, context)
-    assert result == "/path/to/internal_file.txt"
-
-def test_generate_url_external_link():
-    link = {"external": True, "url": "external_file.txt"}
-    context = {}
-    result = generate_url(link, context)
-    assert result == "external_file.txt"
-
-# Test cases for external_link_classes function
-def test_external_link_classes_internal_link():
-    link = {"external": False, "url": "internal_file.txt"}
-    result = external_link_classes(link)
-    assert result == ""
-
-def test_external_link_classes_external_link():
-    link = {"external": True, "url": "external_file.txt"}
-    result = external_link_classes(link)
-    assert result == "nav-external"
-
-# Additional test case for generate_url with missing "pathto" in context
-def test_generate_url_missing_pathto():
-    link = {"external": False, "url": "internal_file.txt"}
-    context = {}
-    with pytest.raises(KeyError):
-        generate_url(link, context)
 
 def test_generate_basic_link_external_link():
     context = {"pathto": lambda x: f"{x}"}

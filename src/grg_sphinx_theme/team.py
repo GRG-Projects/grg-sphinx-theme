@@ -66,7 +66,7 @@ def login_to_fullname(contributors:list, contributors_details:list):
                     contributor["priority"] = contributor_detail["priority"]
         if "priority" not in contributor:
             contributor["priority"] = 100000000000
-            
+
     return sorted(contributors, key=lambda x: x["priority"])
 
 def get_teams(github_project:str, github_teams:list, contributors_details:list = None):
@@ -116,15 +116,15 @@ def add_team_details(
 
     # Setting values in context for usage while building
     context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"], theme_conf.get("contributors_details"))
-    
-    
+
+
     context["team_stats"] = fetch_basic_stats(theme_conf["github_project"], theme_conf["github_repo"], context["contributors"])
-    
+
     if "github_teams" in theme_conf:
         context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"], theme_conf.get("contributors_details"))
-        
-            
-    
 
-            
+
+
+
+
 
