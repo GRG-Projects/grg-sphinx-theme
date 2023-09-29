@@ -6,11 +6,17 @@
     </h5>
     <ul class="footer-section">
       {% for link in section.links %}
-        {% if link.external %}
+        {% if link.link_type and link.link_type == "external" %}
         <li class="pad-v-5">
           <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
             {{ link.name }}
             <i class="fa-solid fa-arrow-up-long mar-l-5"></i>
+          </a>
+        </li>
+        {% elif link.link_type and link.link_type == "inter" %}
+        <li class="pad-v-5">
+          <a href="{{ link.link }}">
+            {{ link.name }}
           </a>
         </li>
         {% else %}
