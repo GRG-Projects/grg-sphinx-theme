@@ -6,8 +6,8 @@
     {{ theme_footer_signup_data["sub_heading"] }}
   </p>
   <div class="input-group mb-3 mar-t-10">
-    <input type="text" class="form-control" placeholder="You email" aria-label="You email">
-    <div class="input-group-append">
+    <input type="text" class="form-control" placeholder="You email" aria-label="You email" id="grg-subscribe-email">
+    <div class="input-group-append pointer" onclick="{{ theme_subscribe_callback }}(document.getElementById('grg-subscribe-email').value)">
       <span class="input-group-text subscribe">Subscribe</span>
     </div>
   </div>  
