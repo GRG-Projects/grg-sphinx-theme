@@ -20,14 +20,14 @@ def fetch_url(url):
     if GH_TOKEN:
         req.add_header('Authorization', 'token {0}'.format(GH_TOKEN))
     try:
-        print('fetching %s' % url, file=sys.stderr)
+        logger.info('fetching %s' % url)
         if not url.lower().startswith('http'):
             msg = 'Please make sure you use http/https connection'
             raise ValueError(msg)
         f = urlopen(req)
     except Exception as e:
-        print(e)
-        print('return Empty data', file=sys.stderr)
+        msg = 'Unable to fetch URL: {0} - {1}'.format(url, e)
+        logger.info(msg)
         return {}
 
     return f
@@ -85,7 +85,7 @@ def get_teams(github_project:str, github_teams:list, contributors_details:list =
             }
             teams_data.append(team_data)
         else:
-            logger.warning("Unable to fetch team data for team: {0}. Check your API key or the name of the team!".format(team))
+            logger.info("Unable to fetch team data for team: {0}. Check your API key or the name of the team!".format(team))
     return teams_data
 
 def get_contributors(github_project:str, github_repo:str, contributors_details:list = None):
