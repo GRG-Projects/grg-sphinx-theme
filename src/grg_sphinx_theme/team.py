@@ -1,11 +1,12 @@
 import os
 import json
-import sys
 from urllib.request import Request, urlopen
 from sphinx.application import Sphinx
 from sphinx.util import logger
 
 GH_TOKEN = os.environ.get('GH_TOKEN', '')
+BASE_URL = 'https://api.github.com/'
+
 
 def fetch_url(url):
     """
@@ -32,19 +33,22 @@ def fetch_url(url):
 
     return f
 
+
 def get_json_from_url(url):
     """Fetch and read url."""
     f = fetch_url(url)
     return json.load(f) if f else {}
 
-def fetch_basic_stats(github_project:str, github_repo:str, contributors:list):
+
+def fetch_basic_stats(github_project: str, github_repo: str,
+                      contributors: list):
     """Fetch the basic stats."""
 
     desired_keys = [
         'stargazers_count',
         'forks_count',
     ]
-    url = 'https://api.github.com/repos/{0}/{1}'.format(github_project, github_repo)
+    url = BASE_URL + 'repos/{0}/{1}'.format(github_project, github_repo)
     r_json = get_json_from_url(url)
     basic_stats = dict((k, r_json[k]) for k in desired_keys if k in r_json)
 
@@ -56,11 +60,13 @@ def fetch_basic_stats(github_project:str, github_repo:str, contributors:list):
 
     return basic_stats
 
-def login_to_fullname(contributors:list, contributors_details:list):
+
+def login_to_fullname(contributors: list, contributors_details: list):
     """Updates the login from github to fullname of the contributor."""
     for contributor in contributors:
         for contributor_detail in contributors_details:
-            if contributor["login"].lower() == contributor_detail["login"].lower():
+            if contributor["login"].lower() == \
+             contributor_detail["login"].lower():
                 contributor["login"] = contributor_detail["fullname"]
                 if "priority" in contributor_detail:
                     contributor["priority"] = contributor_detail["priority"]
@@ -69,12 +75,15 @@ def login_to_fullname(contributors:list, contributors_details:list):
 
     return sorted(contributors, key=lambda x: x["priority"])
 
-def get_teams(github_project:str, github_teams:list, contributors_details:list = None):
+
+def get_teams(github_project: str, github_teams: list,
+              contributors_details: list = None):
     """Fetch team details from github."""
     teams_data = []
     for team in github_teams:
         # Check Response Reference in github Apis
-        url = "https://api.github.com/orgs/{0}/teams/{1}/members".format(github_project, team["value"])
+        url = BASE_URL + "orgs/{0}/teams/{1}/members".format(
+            github_project, team["value"])
         members = get_json_from_url(url)
         if members:
             if contributors_details:
@@ -85,13 +94,17 @@ def get_teams(github_project:str, github_teams:list, contributors_details:list =
             }
             teams_data.append(team_data)
         else:
-            logger.info("Unable to fetch team data for team: {0}. Check your API key or the name of the team!".format(team))
+            logger.info(f"Unable to fetch team data for team: {team}. "
+                        + "Check your API key or the name of the team!")
     return teams_data
 
-def get_contributors(github_project:str, github_repo:str, contributors_details:list = None):
+
+def get_contributors(github_project: str, github_repo: str,
+                     contributors_details: list = None):
     """Fetch list of contributors from github."""
 
-    url = "https://api.github.com/repos/{0}/{1}/contributors?per_page=500".format(github_project, github_repo)
+    url = (BASE_URL +
+           f"repos/{github_project}/{github_repo}/contributors?per_page=500")
     contributors = get_json_from_url(url)
     if contributors_details:
         contributors = login_to_fullname(contributors, contributors_details)
@@ -115,13 +128,20 @@ def add_team_details(
         return
 
     # Setting values in context for usage while building
-    context["contributors"] = get_contributors(theme_conf["github_project"], theme_conf["github_repo"], theme_conf.get("contributors_details"))
+    context["contributors"] = get_contributors(
+        theme_conf["github_project"], theme_conf["github_repo"],
+        theme_conf.get("contributors_details"))
 
-
-    context["team_stats"] = fetch_basic_stats(theme_conf["github_project"], theme_conf["github_repo"], context["contributors"])
+    context["team_stats"] = fetch_basic_stats(theme_conf["github_project"],
+                                              theme_conf["github_repo"],
+                                              context["contributors"])
 
     if "github_teams" in theme_conf:
-        context["teams_data"] = get_teams(theme_conf["github_project"], theme_conf["github_teams"], theme_conf.get("contributors_details"))
+        context["teams_data"] = get_teams(
+            theme_conf["github_project"],
+            theme_conf["github_teams"],
+            theme_conf.get("contributors_details")
+        )
 
 
 

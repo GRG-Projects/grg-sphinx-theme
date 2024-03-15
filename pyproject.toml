@@ -17,7 +17,7 @@ dependencies = [
 license = { file = "LICENSE" }
 # TODO: Add email of the maintainer
 authors = [
-  { name = "Mk996", email = "grg-l@list.indiana.edu" },
+  { name = "maharshi-gor", email = "grg-l@list.indiana.edu" },
   { name = "skoudoro", email = "grg-l@list.indiana.edu" },
 ]
 maintainers = [
