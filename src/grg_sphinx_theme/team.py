@@ -102,10 +102,25 @@ def get_teams(github_project: str, github_teams: list,
 def get_contributors(github_project: str, github_repo: str,
                      contributors_details: list = None):
     """Fetch list of contributors from github."""
+    page = 1
+    contributors = []
 
-    url = (BASE_URL +
-           f"repos/{github_project}/{github_repo}/contributors?per_page=500")
-    contributors = get_json_from_url(url)
+    while (True):
+        url = (BASE_URL +
+               f"repos/{github_project}/{github_repo}/" +
+               f"contributors?per_page=100&page={page}")
+
+        contributor_page = get_json_from_url(url)
+        for con in contributor_page:
+            print(con['login'])
+
+        contributors += contributor_page
+
+        if len(contributor_page) < 100:
+            break
+
+        page += 1
+
     if contributors_details:
         contributors = login_to_fullname(contributors, contributors_details)
     return contributors
