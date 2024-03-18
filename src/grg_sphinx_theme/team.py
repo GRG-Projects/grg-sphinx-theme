@@ -155,9 +155,3 @@ def add_team_details(
             theme_conf["github_teams"],
             theme_conf.get("contributors_details")
         )
-
-
-
-
-
-
