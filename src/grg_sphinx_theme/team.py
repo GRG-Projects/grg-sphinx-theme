@@ -48,7 +48,7 @@ def fetch_basic_stats(github_project: str, github_repo: str,
         'stargazers_count',
         'forks_count',
     ]
-    url = BASE_URL + 'repos/{0}/{1}'.format(github_project, github_repo)
+    url = f"{BASE_URL}repos/{github_project}/{github_repo}"
     r_json = get_json_from_url(url)
     basic_stats = dict((k, r_json[k]) for k in desired_keys if k in r_json)
 
@@ -82,8 +82,7 @@ def get_teams(github_project: str, github_teams: list,
     teams_data = []
     for team in github_teams:
         # Check Response Reference in github Apis
-        url = BASE_URL + "orgs/{0}/teams/{1}/members".format(
-            github_project, team["value"])
+        url = f"{BASE_URL}orgs/{github_project}/teams/{team['value']}/members"
         members = get_json_from_url(url)
         if members:
             if contributors_details:
@@ -106,8 +105,7 @@ def get_contributors(github_project: str, github_repo: str,
     contributors = []
 
     while (True):
-        url = (BASE_URL +
-               f"repos/{github_project}/{github_repo}/" +
+        url = (f"{BASE_URL}repos/{github_project}/{github_repo}/" +
                f"contributors?per_page=100&page={page}")
 
         contributor_page = get_json_from_url(url)
@@ -116,7 +114,7 @@ def get_contributors(github_project: str, github_repo: str,
 
         contributors += contributor_page
 
-        if len(contributor_page) < 100:
+        if len(contributor_page) < 100 or page > 100:
             break
 
         page += 1
