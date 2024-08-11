@@ -11,7 +11,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
   "sphinx>=4",
-  "pydata-sphinx-theme==0.13.3",
+  "pydata-sphinx-theme==0.15.4",
 ]
 
 license = { file = "LICENSE" }
@@ -43,7 +43,7 @@ download = "https://pypi.org/project/grg-sphinx-theme/#files"
 tracker = "https://github.com/GRG-Projects/grg-sphinx-theme/issues"
 
 [project.optional-dependencies]
-all = ["grg-sphinx-theme[dev,doc,style,test]"]
+all = ["grg-sphinx-theme[dev,docs,style,test]"]
 dev = ["gitpython", "twine", "grg-sphinx-theme[style]", "wheel", "build"]
 style = ["flake8", "isort"]
 test = [
