@@ -34,6 +34,7 @@ ol li>p:first-child, ul li>p:first-child {
   border-top: 1px solid var(--gst-color-border);
 }
 
+.nav-link i.external-icon,
 .nav-link svg.external-icon {
   transform: rotate(45deg);
   font-size: 0.7rem;
