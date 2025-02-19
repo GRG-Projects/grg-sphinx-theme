@@ -2,8 +2,9 @@ import os
 import json
 from urllib.request import Request, urlopen
 from sphinx.application import Sphinx
-from sphinx.util import logger
+from sphinx.util import logging
 
+logger = logging.getLogger(__name__)
 GH_TOKEN = os.environ.get('GH_TOKEN', '')
 BASE_URL = 'https://api.github.com/'
 
